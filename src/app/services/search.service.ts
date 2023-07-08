@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,8 @@ export class SearchService {
 
   search(prompt: string) {
 
-    return this.httpClient.get<any>('/magic/modules/oracle/search?prompt=' + encodeURIComponent(prompt));
+    return this.httpClient.get<any>(
+      environment.backend +
+      '/magic/modules/oracle-backend/search?prompt=' + encodeURIComponent(prompt));
   }
 }
