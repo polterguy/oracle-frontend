@@ -13,6 +13,6 @@ export class SearchService {
 
     return this.httpClient.get<any>(
       environment.backend +
-      '/magic/modules/oracle-backend/search?prompt=' + encodeURIComponent(prompt));
+      '/magic/modules/oracle/search?prompt=' + encodeURIComponent(prompt));
   }
 }
