@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SearchService } from './services/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,7 @@ export class AppComponent {
 
       next: (result: any) => {
 
-        console.log(result);
+        window.location.href = environment.backend + '/articles/' + result.url;
       },
 
       error: (error: any) => {

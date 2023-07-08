@@ -1,0 +1,65 @@
+
+.title
+.content
+.created
+
+
+.oninit
+
+   // Figuring out URL that was requested.
+   request.url
+
+   // Sanity checking URL and retrieving article's URL.
+   .url
+   strings.split:x:@request.url
+      .:/
+   if
+      or
+         neq
+            get-count:x:@strings.split/*
+            .:int:2
+         neq:x:@strings.split/0
+            .:articles
+      .lambda
+
+         // Oops, non-existent URL
+         throw:Article was not found
+            status:int:404
+            public:bool:true
+
+   // Article MIGHT exist, setting above [.url]
+   set-value:x:@.url
+      get-value:x:@strings.split/1
+
+   // Finding article in database
+   data.connect:[generic|oracle]
+      data.read
+         table:articles
+         columns
+            title
+            content
+            source
+            created
+         where
+            and
+               url.eq:x:@.url
+
+      // Making sure article exists.
+      if
+         not
+            exists:x:@data.read/*
+         .lambda
+
+            // Oops, non-existent URL
+            throw:Article was not found
+               status:int:404
+               public:bool:true
+
+      // Articles exists, populating fields.
+      set-value:x:@.title
+         get-value:x:@data.read/*/*/title
+      set-value:x:@.content
+         markdown2html:x:@data.read/*/*/content
+
+      lambda2hyper:x:../*
+      log.info:x:-
