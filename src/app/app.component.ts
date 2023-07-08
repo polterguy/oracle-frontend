@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'oracle';
+
+  prompt: string = '';
+  searching: boolean = false;
+
+  submit() {
+
+    this.searching = true;
+  }
 }
