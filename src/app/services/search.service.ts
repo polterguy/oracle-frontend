@@ -16,10 +16,10 @@ export class SearchService {
       '/magic/system/misc/gibberish?min=25&max=25');
   }
 
-  search(prompt: string, channel: string) {
+  search(prompt: string, channel: string, token: string) {
 
     return this.httpClient.get<any>(
       environment.backend +
-      '/magic/modules/oracle/search?prompt=' + encodeURIComponent(prompt) + '&channel=' + channel);
+      '/magic/modules/oracle/search?prompt=' + encodeURIComponent(prompt) + '&channel=' + channel + '&token=' + token);
   }
 }

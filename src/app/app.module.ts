@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -26,8 +27,11 @@ import { FormsModule } from '@angular/forms';
     MatSnackBarModule,
     FormsModule,
     MatCardModule,
+    RecaptchaV3Module,
   ],
-  providers: [],
+  providers: [
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: "6LfVd20fAAAAAC2tcJ55RvOEkraQL390cDw2yiT2" },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import { SearchService } from './services/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent implements OnDestroy {
   hasFocus: boolean = false;
 
   constructor(
+    private recaptchaV3Service: ReCaptchaV3Service,
     private searchService: SearchService,
     private snack: MatSnackBar) { }
 
@@ -46,46 +48,69 @@ export class AppComponent implements OnDestroy {
     this.searching = true;
 
     this.messages.push({
-      message: 'Opening up feedback channel'
+      message: 'Client side validation of reCAPTCHA'
     });
-    this.searchService.gibberish().subscribe({
 
-      next: (result: any) => {
+    this.recaptchaV3Service.execute('formSubmission').subscribe({
 
-        let builder = new HubConnectionBuilder();
-        this.hubConnection = builder.withUrl(environment.backend + '/sockets', {
-          skipNegotiation: true,
-          transport: HttpTransportType.WebSockets,
-        }).build();
-    
-        this.hubConnection.on('oracle.message.' + result.gibberish, (args) => {
-    
-          this.messages.push(JSON.parse(args));
+      next: (token: any) => {
+
+        this.messages.push({
+          message: 'Opening up feedback channel'
         });
-    
-        this.hubConnection.start().then(() => {
-    
-          this.searchService.search(this.prompt, result.gibberish).subscribe({
-    
-            next: (result: any) => {
-    
-              this.hubConnection?.stop();
-              window.location.href = environment.backend + '/articles/' + result.url;
-            },
-    
-            error: (error: any) => {
-    
-              this.searching = false;
-              this.hubConnection?.stop();
-              this.snack.open(error.error, 'Ok', {
-                duration: 5000,
+
+        this.searchService.gibberish().subscribe({
+
+          next: (result: any) => {
+
+            let builder = new HubConnectionBuilder();
+            this.hubConnection = builder.withUrl(environment.backend + '/sockets', {
+              skipNegotiation: true,
+              transport: HttpTransportType.WebSockets,
+            }).build();
+        
+            this.hubConnection.on('oracle.message.' + result.gibberish, (args) => {
+        
+              this.messages.push(JSON.parse(args));
+            });
+        
+            this.hubConnection.start().then(() => {
+        
+              this.searchService.search(this.prompt, result.gibberish, token).subscribe({
+        
+                next: (result: any) => {
+        
+                  this.hubConnection?.stop();
+                  window.location.href = environment.backend + '/articles/' + result.url;
+                },
+        
+                error: (error: any) => {
+        
+                  this.searching = false;
+                  this.hubConnection?.stop();
+                  this.snack.open(error.error, 'Ok', {
+                    duration: 5000,
+                  });
+                }
               });
-            }
-          });
+            });
+          },
+
+          error: () => {
+
+            this.snack.open('Not able to verify create a secure channel', 'Ok', {
+              duration: 5000,
+            });
+          }
         });
       },
 
-      error: (error: any) => {}
+      error: () => {
+
+        this.snack.open('Not able to verify reCAPTCHA key', 'Ok', {
+          duration: 5000,
+        });
+      }
     });
   }
 }
