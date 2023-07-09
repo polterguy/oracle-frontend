@@ -22,15 +22,24 @@ jobs:
         run: |
           npm install
           npm run build
-      - name: DEBUG
+      - name: Copy articles folder to build folder
+        run: |
+          cp -r ./articles ./dist/oracle
+      - name: DEBUG 1
         run: |
           ls ./dist/oracle
+      - name: DEBUG 2
+        run: |
+          ls ./
       - name: Archive
         if: success()
         uses: vimtor/action-zip@v1
         with:
-          files: ./dist
-          dest: archive.zip
+          files: ./dist/oracle
+          dest: ./archive.zip
+      - name: DEBUG 3
+        run: |
+          ls ./
       - name: Deploy
         if: success()
         uses: fjogeleit/http-request-action@v1.14.0
