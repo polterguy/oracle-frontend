@@ -24,7 +24,7 @@ jobs:
           npm run build
       - name: DEBUG
         run: |
-          ls ./dist
+          ls ./dist/oracle
       - name: Archive
         if: success()
         uses: vimtor/action-zip@v1
