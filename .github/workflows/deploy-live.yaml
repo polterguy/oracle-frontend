@@ -52,4 +52,4 @@ jobs:
             "Authorization": "Bearer ${{ secrets.TOKEN }}"
             }'
           data: '{"folder": "/etc/www/"}'
-          files: '{"file": "/home/runner/work/oracle/oracle/archive.zip"}'
+          files: '{"file": "/home/runner/work/oracle-frontend/oracle-frontend/archive.zip"}'
