@@ -2,12 +2,19 @@
 .title
 .content
 .created
+.related:
+.url
+.description
 
 
 .oninit
 
    // Figuring out URL that was requested.
    request.url
+   set-value:x:@.url
+      strings.concat
+         .:"https://oracle.ainiro.io/"
+         get-value:x:@request.url
 
    // Sanity checking URL and retrieving article's URL.
    .url
@@ -36,6 +43,7 @@
       data.read
          table:articles
          columns
+            article_id
             title
             content
             source
@@ -66,5 +74,37 @@
          date.format:x:@convert
             format:D
 
+      set-value:x:@.description
+         strings.substring:x:@data.read/0/*/content
+            .:int:0
+            .:int:250
+      set-value:x:@.description
+         strings.replace:x:@.description
+            .:@""""
+            .:
+
+      // Finding related articles.
+      data.select:@"select a.title, a.url, 100 - (vss.distance * 100) as similarity
+      from vss_articles as vss
+        inner join articles a on a.article_id = vss.rowid
+        where vss_search(
+          embedding_vss,
+          vss_search_params((select embedding_vss from vss_articles where rowid = @id limit 1), 11))
+          and a.article_id != @id order by vss.distance"
+         id:x:@data.read/0/*/article_id
+
+      // Looping through related articles and creating our navigation URLs.
+      for-each:x:@data.select/*
+         set-value:x:@.related
+            strings.concat
+               get-value:x:@.related
+               .:"\r\n"
+               .:@"<li class=""nav-item""><a class=""pure-button pure-button-primary"" href=""/articles/"
+               get-value:x:@.dp/#/*/url
+               .:@""">"
+               get-value:x:@.dp/#/*/title
+               .:@"</a></li>"
+
+      // Returning correct MIME type and charset.
       response.headers.set
          Content-Type:text/html; charset=utf8;

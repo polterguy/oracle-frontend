@@ -38,7 +38,7 @@ export class AppComponent implements OnDestroy {
 
   valid() {
 
-    return this.prompt.length >= 5 && this.prompt.length <= 250;
+    return this.prompt.length >= 5 && this.prompt.length <= 250 && this.prompt.endsWith('?');
   }
 
   submit() {

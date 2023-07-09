@@ -6,6 +6,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css">
     <link rel="stylesheet" href="/articles/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="canonical" href="{{*/.url}}" />
+    <meta name="description" content="{{*/.description}}" />
+
+    <!-- Open Graph stuff -->
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="{{*/.url}}" />
+    <meta property="og:image" content="/articles/ainiro-oracle-frank.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="{{*/.description}}" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@AIniroTeam">
+    <meta name="twitter:description" content="{{*/.description}}">
+    <meta name="twitter:image" content="/articles/ainiro-oracle-frank.png">
+
   </head>
   <body>
 
@@ -14,7 +32,6 @@
       <div class="sidebar pure-u-1 pure-u-md-1-4">
         <div class="header">
           <h2 class="brand-title">AINIRO Oracle</h2>
-          <h3 class="brand-tagline">I know everything</h3>
           <nav class="nav">
             <ul class="nav-list">
               <li class="nav-item">
@@ -25,11 +42,22 @@
         </div>
       </div>
 
-      <article class="content pure-u-1 pure-u-md-3-4">
-        <div class="date">{{*/.created}}</div>
-        <h1>{{*/.title}}</h1>
-        <div class="article-content">{{*/.content}}</div>
-      </article>
+      <div class="content pure-u-1 pure-u-md-3-4">
+
+        <article>
+          <div class="date">{{*/.created}}</div>
+          <h1>{{*/.title}}</h1>
+          <div class="article-content">{{*/.content}}</div>
+        </article>
+
+        <nav class="nav related-articles">
+          <h3>Related articles:</h3>
+          <ul class="nav-list">
+            {{*/.related}}
+          </ul>
+        </nav>
+
+      </div>
 
     </div>
 

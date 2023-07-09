@@ -1,0 +1,43 @@
+name: CI and CD for development environment deploy to cloudlet
+on:
+  push:
+    branches: [ master, main, dev ]
+jobs:
+  archive-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Replace API URL
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          find: "http://localhost:5000"
+          replace: "https://oracle.ainiro.io/"
+          regex: false
+      - name: Node $
+        uses: actions/setup-node@v1
+        with:
+          node-version: $
+      - name: npm install and npm run build
+        run: |
+          npm install
+          npm build
+      - name: Archive
+        if: success()
+        uses: vimtor/action-zip@v1
+        with:
+          files: ./dist
+          dest: archive.zip
+      - name: Deploy
+        if: success()
+        uses: fjogeleit/http-request-action@v1.14.0
+        with:
+          url: 'https://oracle.ainiro.io/magic/system/file-system/overwrite-folder'
+          method: 'PUT'
+          timeout: 50000
+          customHeaders: '{
+            "Content-Type": "multipart/form-data",
+            "Authorization": "Bearer ${{ secrets.TOKEN }}"
+            }'
+          data: '{"folder": "/etc/www/"}'
+          files: '{"file": "/home/runner/work/oracle/oracle/archive.zip"}'
