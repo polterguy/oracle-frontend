@@ -7,22 +7,26 @@
     class="prompt"
     appearance="outline">
 
-    <mat-label>I am the Oracle from Delphi, I know everything. Ask me about anything, and I shall answer you ...</mat-label>
+    <mat-label>Ask me anything, and I shall answer you ...</mat-label>
 
     <input
       matInput
       [(ngModel)]="prompt"
       [disabled]="searching"
+      (focus)="focused()"
+      (blur)="blurred()"
       name="prompt"
       placeholder="Example: Who won US Open in 2023?">
 
     <button
       mat-icon-button
       matSuffix
-      [disabled]="searching"
+      [disabled]="searching || !valid()"
       color="primary">
       <mat-icon>search</mat-icon>
     </button>
+
+    <mat-hint class="mat-error" *ngIf="hasFocus && !valid()">Your question must be between 5 and 250 characters</mat-hint>
 
   </mat-form-field>
 
@@ -31,5 +35,7 @@
 <mat-card
   class="feedback"
   *ngIf="searching">
-  <div class="output"></div>
+  <div class="output">
+    <p *ngFor="let msg of messages">{{msg.message}}</p>
+  </div>
 </mat-card>

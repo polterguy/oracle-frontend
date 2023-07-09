@@ -9,10 +9,17 @@ export class SearchService {
 
   constructor(private httpClient: HttpClient) {}
 
-  search(prompt: string) {
+  gibberish() {
 
     return this.httpClient.get<any>(
       environment.backend +
-      '/magic/modules/oracle/search?prompt=' + encodeURIComponent(prompt));
+      '/magic/system/misc/gibberish?min=25&max=25');
+  }
+
+  search(prompt: string, channel: string) {
+
+    return this.httpClient.get<any>(
+      environment.backend +
+      '/magic/modules/oracle/search?prompt=' + encodeURIComponent(prompt) + '&channel=' + channel);
   }
 }

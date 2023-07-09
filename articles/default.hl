@@ -60,6 +60,11 @@
          get-value:x:@data.read/*/*/title
       set-value:x:@.content
          markdown2html:x:@data.read/*/*/content
+      convert:x:@data.read/*/*/created
+         type:date
+      set-value:x:@.created
+         date.format:x:@convert
+            format:D
 
-      lambda2hyper:x:../*
-      log.info:x:-
+      response.headers.set
+         Content-Type:text/html; charset=utf8;
