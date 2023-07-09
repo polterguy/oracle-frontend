@@ -14,7 +14,7 @@ jobs:
           find: "http://localhost:5000"
           replace: "https://oracle.ainiro.io/"
           regex: false
-      - name: Node
+      - name: Install Node v18.16.1
         uses: actions/setup-node@v1
         with:
           node-version: "v18.16.1"
@@ -24,7 +24,7 @@ jobs:
           npm run build
       - name: DEBUG
         run: |
-          ls
+          ls ./dist
       - name: Archive
         if: success()
         uses: vimtor/action-zip@v1
