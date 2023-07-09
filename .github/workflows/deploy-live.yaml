@@ -26,6 +26,10 @@ jobs:
         with:
           files: ./dist
           dest: archive.zip
+      - name: DEBUG
+        run: |
+          ls
+          ls ./dist
       - name: Deploy
         if: success()
         uses: fjogeleit/http-request-action@v1.14.0
