@@ -14,10 +14,8 @@ jobs:
           find: "http://localhost:5000"
           replace: "https://oracle.ainiro.io/"
           regex: false
-      - name: Node $
+      - name: Node
         uses: actions/setup-node@v1
-        with:
-          node-version: $
       - name: npm install and npm run build
         run: |
           npm install
