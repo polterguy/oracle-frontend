@@ -1,4 +1,14 @@
 
+::ng-deep {
+  html, body {
+    height: auto;
+    width: auto;
+  }
+  body {
+    padding-bottom: 25px;
+  }
+}
+
 mat-spinner {
   position: absolute;
   top: 15px;
@@ -11,7 +21,7 @@ mat-spinner {
   margin-left: auto;
   margin-right: auto;
 
-  @media screen and (max-width: 982px) {
+  @media screen and (max-width: 1024px) {
     width: calc(100% - 40px);
     padding-top: 40px;
   }
@@ -29,6 +39,13 @@ mat-spinner {
     width: 100%;
     padding: 25px;
 
+    .count {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      color: #a0a0a0;
+    }
+
     h1 {
       text-align: center;
     }
@@ -43,7 +60,13 @@ mat-spinner {
           margin-right: 20px;
           margin-bottom: 10px;
           width: 100%;
-          justify-content: flex-start;
+          height: 20px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: inline-block;
+          white-space: nowrap;
+          padding-top: 10px;
+          padding-bottom: 27px;
         }
       }
     }

@@ -40,6 +40,10 @@
     class="recent-results"
     *ngIf="!searching && answers.length > 0">
 
+    <div class="count">
+      Answers {{count}}
+    </div>
+
     <ul>
       <li *ngFor="let idx of answers">
         <a [href]="getUrl(idx.url)" mat-button>{{idx.title}}</a>

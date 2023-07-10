@@ -18,6 +18,7 @@ export class AppComponent implements OnInit, OnDestroy {
   messages: any[] = [];
   hasFocus: boolean = false;
   answers: any[] = [];
+  count: number = 0;
 
   constructor(
     private recaptchaV3Service: ReCaptchaV3Service,
@@ -32,6 +33,22 @@ export class AppComponent implements OnInit, OnDestroy {
       next: (result: any[]) => {
 
         this.answers = result || [];
+      },
+
+      error: (error: any) => {
+
+        this.snack.open(error.error, 'Ok', {
+          duration: 5000,
+        });
+      }
+    });
+
+    // Counting answers.
+    this.searchService.countAnswers().subscribe({
+
+      next: (result: any) => {
+
+        this.count = result.count;
       },
 
       error: (error: any) => {

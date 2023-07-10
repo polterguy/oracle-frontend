@@ -26,4 +26,8 @@ export class SearchService {
   recentAnswers() {
     return this.httpClient.get<any[]>(environment.backend + '/magic/modules/oracle/recent-answers');
   }
+
+  countAnswers() {
+    return this.httpClient.get<any[]>(environment.backend + '/magic/modules/oracle/answers-count');
+  }
 }
