@@ -97,6 +97,23 @@
             set-value:x:@.image
                get-value:x:@html2lambda/**/img/[0,1]/*/\@src
 
+      // Checking if article contains code elements, at which point we include syntax highlighter.
+      if
+         exists:x:@html2lambda/**/pre
+         .lambda
+
+            // Injecting highlight.js
+            insert-after:x:@html2lambda/0/-
+               .
+                  div
+                     #text:@"<link rel=""stylesheet"" href=""https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"">
+<script src=""https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.7.0/build/highlight.min.js""></script>
+<script>hljs.highlightAll();</script>"
+
+      // Updating HTML again now that it's possibly transformed.
+      set-value:x:@.content
+         lambda2html:x:@html2lambda
+
       // Finding related articles.
       data.select:@"select a.title, a.url, 100 - (vss.distance * 100) as similarity
       from vss_articles as vss
