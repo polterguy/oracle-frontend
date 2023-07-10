@@ -1,5 +1,6 @@
 
 .title
+.image:"https://oracle.ainiro.io/articles/ainiro-oracle-frank.png"
 .content
 .created
 .related:
@@ -85,6 +86,16 @@
             .:
       set-value:x:@.source
          get-value:x:@data.read/0/*/source
+
+      // Checking of [.content] contains an image, and if so, using it as OG and Twitter image.
+      html2lambda:x:@.content
+      if
+         exists:x:@html2lambda/**/img
+         .lambda
+
+            // Changing [.image] to first image we find in result.
+            set-value:x:@.image
+               get-value:x:@html2lambda/**/img/[0,1]/*/\@src
 
       // Finding related articles.
       data.select:@"select a.title, a.url, 100 - (vss.distance * 100) as similarity

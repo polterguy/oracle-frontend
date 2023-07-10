@@ -68,13 +68,25 @@ export class AppComponent implements OnInit, OnDestroy {
     return this.prompt.length >= 5 && this.prompt.length <= 250 && this.prompt.endsWith('?');
   }
 
+  dotDotDot() {
+
+    if (!this.searching || this.messages.length === 0) {
+      return;
+    }
+
+    this.messages[this.messages.length - 1].message += '.';
+    setTimeout(() => this.dotDotDot(), 1000);
+  }
+
   submit() {
 
     this.searching = true;
+    this.messages = [];
 
     this.messages.push({
       message: 'Client side validation of reCAPTCHA'
     });
+    setTimeout(() => this.dotDotDot(), 1000);
 
     this.recaptchaV3Service.execute('formSubmission').subscribe({
 
