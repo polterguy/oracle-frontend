@@ -82,12 +82,30 @@ h3 {
 }
 .related-articles .pure-button {
   margin: 0 5px 5px 0;
+  max-width: 300px;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
 }
 .pure-button:hover,
 .pure-button:active,
 .pure-button:focus {
   outline: none;
   border: none;
+}
+@media screen and (max-width: 982px) {
+  .related-articles ul.nav-list li {
+    display: block;
+    width: 100%;
+  }
+  .related-articles .pure-button {
+    margin: 0 5px 5px 0;
+    width: 100%;
+    max-width: 100%;
+    display: block;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    text-align: left;
+  }
 }
 
 .nav-item a:hover,
@@ -117,6 +135,10 @@ h3 {
   right: 15px;
   color: #a0a0a0;
   font-style: italic;
+}
+
+.article-content {
+  text-align: justify;
 }
 
 .article-content img {

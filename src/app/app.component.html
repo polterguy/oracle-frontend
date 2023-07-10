@@ -1,41 +1,45 @@
 
-<form
-  class="prompt-form"
-  (ngSubmit)="submit()">
+<div class="viewport">
 
-  <mat-form-field
-    class="prompt"
-    appearance="outline">
+  <form
+    class="prompt-form"
+    (ngSubmit)="submit()">
 
-    <mat-label>Ask me anything ...</mat-label>
+    <mat-form-field
+      class="prompt"
+      appearance="outline">
 
-    <input
-      matInput
-      [(ngModel)]="prompt"
-      [disabled]="searching"
-      (focus)="focused()"
-      (blur)="blurred()"
-      name="prompt"
-      placeholder="Who won US Open in 2023?">
+      <mat-label>Ask me anything ...</mat-label>
 
-    <button
-      mat-icon-button
-      matSuffix
-      [disabled]="searching || !valid()"
-      color="primary">
-      <mat-icon>search</mat-icon>
-    </button>
+      <input
+        matInput
+        [(ngModel)]="prompt"
+        [disabled]="searching"
+        (focus)="focused()"
+        (blur)="blurred()"
+        name="prompt"
+        placeholder="Who won US Open in 2023?">
 
-    <mat-hint class="mat-error" *ngIf="hasFocus && !valid()">Your question must be between 5 and 250 characters and end with a question mark (?)</mat-hint>
+      <button
+        mat-icon-button
+        matSuffix
+        [disabled]="searching || !valid()"
+        color="primary">
+        <mat-icon>search</mat-icon>
+      </button>
 
-  </mat-form-field>
+      <mat-hint class="mat-error" *ngIf="hasFocus && !valid()">Your question must be between 5 and 250 characters and end with a question mark (?)</mat-hint>
 
-</form>
+    </mat-form-field>
 
-<mat-card
-  class="feedback"
-  *ngIf="searching">
-  <div class="output">
-    <p *ngFor="let msg of messages">{{msg.message}}</p>
-  </div>
-</mat-card>
+  </form>
+
+  <mat-card
+    class="feedback"
+    *ngIf="searching">
+    <div class="output">
+      <p *ngFor="let msg of messages">{{msg.message}}</p>
+    </div>
+  </mat-card>
+
+</div>
