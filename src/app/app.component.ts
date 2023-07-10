@@ -19,6 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
   hasFocus: boolean = false;
   answers: any[] = [];
   count: number = 0;
+  hasMore: boolean = true;
 
   constructor(
     private recaptchaV3Service: ReCaptchaV3Service,
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // Retrieving 5 most recent answers.
+    // Retrieving 10 most recent answers.
     this.searchService.recentAnswers().subscribe({
 
       next: (result: any[]) => {
@@ -60,14 +61,33 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnDestroy() {
+
+    this.hubConnection?.stop();
+  }
+
   getUrl(url: string) {
 
     return environment.backend + '/articles/' + url;
   }
 
-  ngOnDestroy() {
+  more() {
 
-    this.hubConnection?.stop();
+    this.searchService.recentAnswers(this.answers[this.answers.length - 1].article_id).subscribe({
+
+      next: (result: any[]) => {
+
+        this.answers = this.answers.concat(result || []);
+        this.hasMore = result.length >= 10;
+      },
+
+      error: (error: any) => {
+
+        this.snack.open(error.error, 'Ok', {
+          duration: 5000,
+        });
+      }
+    });
   }
 
   focused() {

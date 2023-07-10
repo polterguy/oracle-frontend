@@ -50,6 +50,15 @@
       </li>
     </ul>
 
+    <div class="pager">
+      <button
+        [disabled]="hasMore === false"
+        mat-button
+        (click)="more()">
+        More
+      </button>
+    </div>
+
   </mat-card>
 
   <mat-card

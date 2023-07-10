@@ -23,8 +23,10 @@ export class SearchService {
       '/magic/modules/oracle/search?prompt=' + encodeURIComponent(prompt) + '&channel=' + channel + '&token=' + token);
   }
 
-  recentAnswers() {
-    return this.httpClient.get<any[]>(environment.backend + '/magic/modules/oracle/recent-answers');
+  recentAnswers(from: number = -1) {
+    return this.httpClient.get<any[]>(environment.backend +
+      '/magic/modules/oracle/recent-answers' +
+      (from === -1 ? '' : ('?from=' + from)));
   }
 
   countAnswers() {
