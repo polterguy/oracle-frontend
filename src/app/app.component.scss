@@ -19,12 +19,36 @@
     }
   }
 
+  .recent-results {
+    width: 100%;
+    padding: 25px;
+
+    h1 {
+      text-align: center;
+    }
+
+    ul {
+      padding: 0;
+
+      li {
+        list-style-type: none;
+
+        a {
+          margin-right: 20px;
+          margin-bottom: 10px;
+          width: 100%;
+          justify-content: flex-start;
+        }
+      }
+    }
+  }
+
   .feedback {
     width: 100%;
     padding: 25px;
 
     .output {
-      height: 300px;
+      height: 180px;
       background-color: #000000;
       border-radius: 5px;
       color: whitesmoke;

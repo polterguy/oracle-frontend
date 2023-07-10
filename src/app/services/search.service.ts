@@ -22,4 +22,8 @@ export class SearchService {
       environment.backend +
       '/magic/modules/oracle/search?prompt=' + encodeURIComponent(prompt) + '&channel=' + channel + '&token=' + token);
   }
+
+  recentAnswers() {
+    return this.httpClient.get<any[]>(environment.backend + '/magic/modules/oracle/recent-answers');
+  }
 }

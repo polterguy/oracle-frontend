@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SearchService } from './services/search.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
@@ -10,18 +10,43 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
 
   prompt: string = '';
   searching: boolean = false;
   hubConnection?: HubConnection;
   messages: any[] = [];
   hasFocus: boolean = false;
+  answers: any[] = [];
 
   constructor(
     private recaptchaV3Service: ReCaptchaV3Service,
     private searchService: SearchService,
     private snack: MatSnackBar) { }
+
+  ngOnInit() {
+
+    // Retrieving 5 most recent answers.
+    this.searchService.recentAnswers().subscribe({
+
+      next: (result: any[]) => {
+
+        this.answers = result || [];
+      },
+
+      error: (error: any) => {
+
+        this.snack.open(error.error, 'Ok', {
+          duration: 5000,
+        });
+      }
+    });
+  }
+
+  getUrl(url: string) {
+
+    return environment.backend + '/articles/' + url;
+  }
 
   ngOnDestroy() {
 

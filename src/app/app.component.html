@@ -28,18 +28,32 @@
         <mat-icon>search</mat-icon>
       </button>
 
-      <mat-hint class="mat-error" *ngIf="hasFocus && !valid()">Your question must be between 5 and 250 characters and end with a question mark (?)</mat-hint>
+      <mat-hint class="mat-error" *ngIf="hasFocus && !valid()">5 to 250 characters ending with a question mark (?)</mat-hint>
 
     </mat-form-field>
 
   </form>
 
   <mat-card
+    class="recent-results"
+    *ngIf="!searching && answers.length > 0">
+
+    <ul>
+      <li *ngFor="let idx of answers">
+        <a [href]="getUrl(idx.url)" mat-button>{{idx.title}}</a>
+      </li>
+    </ul>
+
+  </mat-card>
+
+  <mat-card
     class="feedback"
     *ngIf="searching">
+
     <div class="output">
       <p *ngFor="let msg of messages">{{msg.message}}</p>
     </div>
+
   </mat-card>
 
 </div>
