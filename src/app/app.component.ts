@@ -27,6 +27,9 @@ export class AppComponent implements OnInit, OnDestroy {
   count: number = 0;
   hasMore: boolean = true;
   ticket: string | null = null;
+  displayedColumns: string[] = [
+    'title',
+  ];
 
   constructor(
     private recaptchaV3Service: ReCaptchaV3Service,
@@ -41,6 +44,11 @@ export class AppComponent implements OnInit, OnDestroy {
     const ticket = localStorage.getItem('ticket');
     if (ticket) {
       this.ticket = ticket;
+      this.displayedColumns = [
+        'title',
+        'permalink',
+        'delete',
+      ];
     }
   }
 
@@ -102,6 +110,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
               this.ticket = result.ticket;
               localStorage.setItem('ticket', <string>this.ticket);
+              this.displayedColumns = [
+                'title',
+                'permalink',
+                'delete',
+              ];
             },
 
             error: (error: any) => {
@@ -119,11 +132,38 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.ticket = null;
     localStorage.removeItem('ticket');
+    this.displayedColumns = [
+      'title',
+    ];
   }
 
   getUrl(url: string) {
 
     return environment.backend + '/articles/' + url;
+  }
+
+  permalinkChanged(answer: any) {
+
+    // Updating article.
+    this.searchService.updateAnswer({
+      article_id: answer.article_id,
+      permalink: answer.permalink ? 1 : 0,
+    }).subscribe({
+
+      next: () => {
+
+        this.snack.open('Article successfully updated', 'Ok', {
+          duration: 500,
+        });
+      },
+
+      error: (error: any) => {
+
+        this.snack.open(error.error, 'Ok', {
+          duration: 5000,
+        });
+      }
+    });
   }
 
   deleteAnswer(answer: any) {

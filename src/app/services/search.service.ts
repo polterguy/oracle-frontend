@@ -83,4 +83,18 @@ export class SearchService {
         }
       });
   }
+
+  /**
+   * Updates the specified article in our backend.
+   */
+  updateAnswer(article: any) {
+
+    return this.httpClient.put<any>(
+      environment.backend +
+      '/magic/modules/oracle/articles', article, {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('ticket')
+        }
+      });
+  }
 }

@@ -11,7 +11,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -30,9 +33,12 @@ import { LoginDialogComponent } from './components/login-dialog/login-dialog.com
     BrowserAnimationsModule,
     HttpClientModule,
     MatInputModule,
+    MatTooltipModule,
     MatButtonModule,
     MatIconModule,
+    MatTableModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
     MatProgressSpinnerModule,
     MatDialogModule,
     MatFormFieldModule,
