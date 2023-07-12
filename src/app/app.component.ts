@@ -121,6 +121,12 @@ export class AppComponent implements OnInit, OnDestroy {
     return environment.backend + '/articles/' + url;
   }
 
+  deleteAnswer(answer: any) {
+
+    // Invoking backend to delete answer.
+    this.searchService.countAnswers
+  }
+
   more() {
 
     this.searchService.recentAnswers(this.answers[this.answers.length - 1].article_id).subscribe({

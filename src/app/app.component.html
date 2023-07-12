@@ -80,6 +80,7 @@
 
         <button
           mat-button
+          (click)="deleteAnswer(idx)"
           *ngIf="ticket">
           <mat-icon>delete</mat-icon>
         </button>

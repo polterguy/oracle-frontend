@@ -7,8 +7,11 @@ import { environment } from 'src/environments/environment';
 })
 export class SearchService {
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
+  /**
+   * Authenticates you towards backend.
+   */
   login(username: string, password: string) {
 
     return this.httpClient.get<any>(
@@ -17,6 +20,9 @@ export class SearchService {
       '&password=' + encodeURIComponent(password));
   }
 
+  /**
+   * Returns random string of 25 charactes to use for socket channel.
+   */
   gibberish() {
 
     return this.httpClient.get<any>(
@@ -24,6 +30,9 @@ export class SearchService {
       '/magic/system/misc/gibberish?min=25&max=25');
   }
 
+  /**
+   * Searches for the answer to your question.
+   */
   search(prompt: string, channel: string, token: string) {
 
     return this.httpClient.get<any>(
@@ -31,13 +40,22 @@ export class SearchService {
       '/magic/modules/oracle/search?prompt=' + encodeURIComponent(prompt) + '&channel=' + channel + '&token=' + token);
   }
 
+  /**
+   * Returns recent answers, optionally offsetting from the specified 'from' argument,
+   * which is the ID of the last seen answer you want to start retrieving answers from.
+   */
   recentAnswers(from: number = -1) {
+
     return this.httpClient.get<any[]>(environment.backend +
       '/magic/modules/oracle/recent-answers' +
       (from === -1 ? '' : ('?from=' + from)));
   }
 
+  /**
+   * Returns the numberof answers in total in system.
+   */
   countAnswers() {
+
     return this.httpClient.get<any[]>(environment.backend + '/magic/modules/oracle/answers-count');
   }
 }
