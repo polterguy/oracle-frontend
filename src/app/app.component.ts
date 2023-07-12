@@ -27,6 +27,7 @@ export class AppComponent implements OnInit, OnDestroy {
   count: number = 0;
   hasMore: boolean = true;
   ticket: string | null = null;
+  permalinks: boolean = false;
   displayedColumns: string[] = [
     'title',
   ];
@@ -55,7 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
   getArticles() {
 
     // Retrieving 10 most recent answers.
-    this.searchService.recentAnswers().subscribe({
+    this.searchService.recentAnswers(this.permalinks).subscribe({
 
       next: (result: any[]) => {
 
@@ -142,6 +143,11 @@ export class AppComponent implements OnInit, OnDestroy {
     return environment.backend + '/articles/' + url;
   }
 
+  permalinksChanged() {
+
+    this.getArticles();
+  }
+
   permalinkChanged(answer: any) {
 
     // Updating article.
@@ -192,7 +198,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   more() {
 
-    this.searchService.recentAnswers(this.answers[this.answers.length - 1].article_id).subscribe({
+    this.searchService.recentAnswers(this.permalinks, this.answers[this.answers.length - 1].article_id).subscribe({
 
       next: (result: any[]) => {
 

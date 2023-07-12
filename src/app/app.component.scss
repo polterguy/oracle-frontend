@@ -16,24 +16,18 @@ mat-spinner {
 }
 
 .viewport {
-  padding-top: 100px;
   width: 1024px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
 
-  .login {
-    position: absolute;
-    top: 12px;
-    right: 5px;
-    outline: none;
-    text-decoration: none;
-    color:#aaaaff
+  form {
+    padding-top: 20px;
   }
 
-  @media screen and (max-width: 1024px) {
-    width: calc(100% - 40px);
-    padding-top: 40px;
+  .navbar {
+    text-align: right;
+    padding-top: 20px;
   }
 
   .prompt-form {
@@ -60,10 +54,22 @@ mat-spinner {
       text-align: center;
     }
 
+    td {
+      padding: 0;
+    }
+
     .article-link {
       width: 100%;
+      display: block;
+      padding: 15px 15px 15px 15px;
+      height: auto;
       text-decoration: none;
       justify-content: flex-start;
+      color: #a0a0a0;
+    }
+
+    .permalink .article-link {
+      color: #000000;
     }
 
     .small-cell {
@@ -114,6 +120,13 @@ mat-spinner {
         animation-fill-mode: forwards;
       }
     }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+
+  .viewport {
+    width: calc(100% - 40px);
   }
 }
 

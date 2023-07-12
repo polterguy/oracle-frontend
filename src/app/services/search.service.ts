@@ -51,12 +51,26 @@ export class SearchService {
    * Returns recent answers, optionally offsetting from the specified 'from' argument,
    * which is the ID of the last seen answer you want to start retrieving answers from.
    */
-  recentAnswers(from: number = -1) {
+  recentAnswers(permalinks: boolean = false, from: number = -1) {
+
+    let filter = '';
+    if (from !== -1) {
+      filter += 'from=' + from
+    }
+    if (permalinks) {
+      if (filter !== '') {
+        filter += '&permalinks=true'
+      } else {
+        filter = 'permalinks=true'
+      }
+    }
+    if (filter !== '') {
+      filter = '?' + filter;
+    }
 
     return this.httpClient.get<any[]>(
       environment.backend +
-      '/magic/modules/oracle/recent-answers' +
-      (from === -1 ? '' : ('?from=' + from)));
+      '/magic/modules/oracle/recent-answers' + filter);
   }
 
   /**
