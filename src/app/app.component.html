@@ -9,6 +9,7 @@
     <mat-slide-toggle
       [(ngModel)]="permalinks"
       (change)="permalinksChanged()"
+      [disabled]="searching"
       matTooltip="Show only permalinks"
       color="primary">Permalinks</mat-slide-toggle>
 
@@ -16,6 +17,7 @@
     <button
       class="login"
       *ngIf="ticket === null"
+      [disabled]="searching"
       mat-button
       (click)="login()">
       Login
@@ -25,6 +27,7 @@
       class="login"
       *ngIf="ticket !== null"
       mat-button
+      [disabled]="searching"
       (click)="logout()">
       Logout
     </button>

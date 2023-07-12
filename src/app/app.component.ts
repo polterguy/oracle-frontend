@@ -277,7 +277,16 @@ export class AppComponent implements OnInit, OnDestroy {
               if (msg.type === 'article_created') {
 
                 this.hubConnection?.stop();
+                this.searching = false;
                 window.location.href = environment.backend + '/articles/' + msg.message;
+
+              } else if (msg.type === 'error') {
+
+                this.hubConnection?.stop();
+                this.searching = false;
+                this.snack.open(msg.message, 'Ok', {
+                  duration: 5000,
+                });
               }
             });
         
@@ -285,10 +294,10 @@ export class AppComponent implements OnInit, OnDestroy {
         
               this.searchService.search(this.prompt, result.gibberish, token).subscribe({
         
-                next: (result: any) => {
+                next: () => {
 
                   this.snack.open('Please wait while I find your answer', 'Ok', {
-                    duration: 2000,
+                    duration: 500,
                   });
                 },
         
