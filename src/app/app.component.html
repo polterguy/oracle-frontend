@@ -3,13 +3,25 @@
 
 <div class="viewport">
 
+  <!-- Login and logout buttons -->
   <button
     class="login"
+    *ngIf="ticket === null"
     mat-button
     (click)="login()">
     Login
   </button>
 
+  <button
+    class="login"
+    *ngIf="ticket !== null"
+    mat-button
+    (click)="logout()">
+    Logout
+  </button>
+  <!-- /Login and logout buttons -->
+
+  <!-- Question form to allow user to ask questions -->
   <form
     class="prompt-form"
     (ngSubmit)="submit()">
@@ -37,12 +49,16 @@
         <mat-icon>search</mat-icon>
       </button>
 
-      <mat-hint class="mat-error" *ngIf="hasFocus && !valid()">5 to 250 characters ending with a question mark (?)</mat-hint>
+      <mat-hint
+        class="mat-error"
+        *ngIf="hasFocus && !valid()">5 to 250 characters ending with a question mark (?)</mat-hint>
 
     </mat-form-field>
 
   </form>
+  <!-- /Question form to allow user to ask questions -->
 
+  <!-- Primary card for displaying recent answers -->
   <mat-card
     class="recent-results"
     *ngIf="!searching && answers.length > 0">
@@ -51,12 +67,29 @@
       Answers {{count}}
     </div>
 
+    <!-- Recent answers -->
     <ul>
-      <li *ngFor="let idx of answers">
-        <a [href]="getUrl(idx.url)" mat-button>{{idx.title}}</a>
-      </li>
-    </ul>
 
+      <li *ngFor="let idx of answers">
+
+        <a
+          [href]="getUrl(idx.url)"
+          mat-button>
+          {{idx.title}}
+        </a>
+
+        <button
+          mat-button
+          *ngIf="ticket">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+      </li>
+
+    </ul>
+    <!-- /Recent answers -->
+
+    <!-- Pager to retrieve more answers -->
     <div class="pager">
       <button
         [disabled]="hasMore === false"
@@ -65,9 +98,12 @@
         More
       </button>
     </div>
+    <!-- /Pager to retrieve more answers -->
 
   </mat-card>
+  <!-- /Primary card for displaying recent answers -->
 
+  <!-- Feedback card to provide user feedback about answering process -->
   <mat-card
     class="feedback"
     *ngIf="searching">
@@ -77,5 +113,6 @@
     </div>
 
   </mat-card>
+  <!-- /Feedback card to provide user feedback about answering process -->
 
 </div>

@@ -26,6 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
   answers: any[] = [];
   count: number = 0;
   hasMore: boolean = true;
+  ticket: string | null = null;
 
   constructor(
     private recaptchaV3Service: ReCaptchaV3Service,
@@ -66,6 +67,11 @@ export class AppComponent implements OnInit, OnDestroy {
         });
       }
     });
+
+    const ticket = localStorage.getItem('ticket');
+    if (ticket) {
+      this.ticket = ticket;
+    }
   }
 
   ngOnDestroy() {
@@ -85,9 +91,29 @@ export class AppComponent implements OnInit, OnDestroy {
 
         if (result) {
 
-          console.log(result);
+          this.searchService.login(result.username, result.password).subscribe({
+
+            next: (result: any) => {
+
+              this.ticket = result.ticket;
+              localStorage.setItem('ticket', <string>this.ticket);
+            },
+
+            error: (error: any) => {
+
+              this.snack.open(error.statusText, 'Ok', {
+                duration: 5000,
+              });
+            }
+          });
         }
     });
+  }
+
+  logout() {
+
+    this.ticket = null;
+    localStorage.removeItem('ticket');
   }
 
   getUrl(url: string) {

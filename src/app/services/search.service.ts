@@ -9,6 +9,14 @@ export class SearchService {
 
   constructor(private httpClient: HttpClient) {}
 
+  login(username: string, password: string) {
+
+    return this.httpClient.get<any>(
+      environment.backend +
+      '/magic/system/auth/authenticate?username=' + encodeURIComponent(username) +
+      '&password=' + encodeURIComponent(password));
+  }
+
   gibberish() {
 
     return this.httpClient.get<any>(

@@ -65,11 +65,12 @@ mat-spinner {
 
       li {
         list-style-type: none;
+        display: flex;
 
         a {
           margin-right: 20px;
           margin-bottom: 10px;
-          width: 100%;
+          width: calc(100% - 20px);
           height: 20px;
           text-overflow: ellipsis;
           overflow: hidden;
@@ -77,6 +78,10 @@ mat-spinner {
           white-space: nowrap;
           padding-top: 10px;
           padding-bottom: 27px;
+        }
+
+        button {
+          color: #aaaaaa;
         }
       }
     }
