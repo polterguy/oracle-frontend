@@ -16,8 +16,10 @@ export class SearchService {
 
     return this.httpClient.get<any>(
       environment.backend +
-      '/magic/system/auth/authenticate?username=' + encodeURIComponent(username) +
-      '&password=' + encodeURIComponent(password));
+      '/magic/system/auth/authenticate?username=' +
+      encodeURIComponent(username) +
+      '&password=' +
+      encodeURIComponent(password));
   }
 
   /**
@@ -37,7 +39,12 @@ export class SearchService {
 
     return this.httpClient.get<any>(
       environment.backend +
-      '/magic/modules/oracle/search?prompt=' + encodeURIComponent(prompt) + '&channel=' + channel + '&token=' + token);
+      '/magic/modules/oracle/search?prompt=' +
+      encodeURIComponent(prompt) +
+      '&channel=' +
+      channel +
+      '&token=' +
+      encodeURIComponent(token));
   }
 
   /**
@@ -46,7 +53,8 @@ export class SearchService {
    */
   recentAnswers(from: number = -1) {
 
-    return this.httpClient.get<any[]>(environment.backend +
+    return this.httpClient.get<any[]>(
+      environment.backend +
       '/magic/modules/oracle/recent-answers' +
       (from === -1 ? '' : ('?from=' + from)));
   }
@@ -56,6 +64,19 @@ export class SearchService {
    */
   countAnswers() {
 
-    return this.httpClient.get<any[]>(environment.backend + '/magic/modules/oracle/answers-count');
+    return this.httpClient.get<any>(
+      environment.backend +
+      '/magic/modules/oracle/answers-count');
+  }
+
+  /**
+   * Deletes the specified article from backend.
+   */
+  deleteAnswer(id: number) {
+
+    return this.httpClient.delete<any>(
+      environment.backend +
+      '/magic/modules/oracle/delete?article_id=' +
+      encodeURIComponent(id));
   }
 }
