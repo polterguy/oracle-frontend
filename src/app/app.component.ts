@@ -1,9 +1,15 @@
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SearchService } from './services/search.service';
+
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { environment } from 'src/environments/environment';
-import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+
 import { ReCaptchaV3Service } from 'ng-recaptcha';
+import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+
+import { environment } from 'src/environments/environment';
+import { SearchService } from './services/search.service';
+import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private recaptchaV3Service: ReCaptchaV3Service,
     private searchService: SearchService,
+    private dialog: MatDialog,
     private snack: MatSnackBar) { }
 
   ngOnInit() {
@@ -64,6 +71,23 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
 
     this.hubConnection?.stop();
+  }
+
+  login() {
+
+    console.log('foo');
+    this.dialog
+      .open(LoginDialogComponent, {
+        width: '450px',
+      })
+      .afterClosed()
+      .subscribe((result: any) => {
+
+        if (result) {
+
+          console.log(result);
+        }
+    });
   }
 
   getUrl(url: string) {

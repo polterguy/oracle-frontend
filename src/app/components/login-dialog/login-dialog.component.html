@@ -1,0 +1,47 @@
+
+<h3 mat-dialog-title>Login</h3>
+
+<form (ngSubmit)="login()">
+  <div mat-dialog-content>
+
+    <mat-form-field
+      class="username"
+      appearance="outline">
+
+      <mat-label>Username ...</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="username"
+        name="username"
+        placeholder="Your username here ...">
+
+    </mat-form-field>
+
+    <mat-form-field
+      class="password"
+      appearance="outline">
+
+      <mat-label>Password ...</mat-label>
+
+      <input
+        matInput
+        [(ngModel)]="password"
+        type="password"
+        name="password"
+        placeholder="Your password here ...">
+
+    </mat-form-field>
+
+  </div>
+
+  <div mat-dialog-actions [align]="'end'">
+
+    <button
+      mat-flat-button
+      type="submit">
+      Save
+    </button>
+
+  </div>
+</form>
