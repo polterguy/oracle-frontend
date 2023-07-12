@@ -227,7 +227,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   valid() {
 
-    return this.prompt.length >= 5 && this.prompt.length <= 250 && this.prompt.endsWith('?');
+    return this.prompt.length >= 15 && this.prompt.length <= 100 && this.prompt.endsWith('?');
   }
 
   dotDotDot() {
