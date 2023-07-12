@@ -36,12 +36,23 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.getArticles();
+
+    const ticket = localStorage.getItem('ticket');
+    if (ticket) {
+      this.ticket = ticket;
+    }
+  }
+
+  getArticles() {
+
     // Retrieving 10 most recent answers.
     this.searchService.recentAnswers().subscribe({
 
       next: (result: any[]) => {
 
         this.answers = result || [];
+        this.hasMore = this.answers.length >= 10;
       },
 
       error: (error: any) => {
@@ -67,11 +78,6 @@ export class AppComponent implements OnInit, OnDestroy {
         });
       }
     });
-
-    const ticket = localStorage.getItem('ticket');
-    if (ticket) {
-      this.ticket = ticket;
-    }
   }
 
   ngOnDestroy() {
@@ -81,7 +87,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   login() {
 
-    console.log('foo');
     this.dialog
       .open(LoginDialogComponent, {
         width: '450px',
@@ -124,7 +129,25 @@ export class AppComponent implements OnInit, OnDestroy {
   deleteAnswer(answer: any) {
 
     // Invoking backend to delete answer.
-    this.searchService.countAnswers
+    this.searchService.deleteAnswer(answer.article_id).subscribe({
+
+      next: () => {
+
+        this.snack.open('Article successfully deleted', 'Ok', {
+          duration: 5000,
+        });
+
+        // Fetching articles again.
+        this.getArticles();
+      },
+
+      error: (error: any) => {
+
+        this.snack.open(error.error, 'Ok', {
+          duration: 5000,
+        });
+      }
+    });
   }
 
   more() {

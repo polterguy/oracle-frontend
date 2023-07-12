@@ -76,7 +76,11 @@ export class SearchService {
 
     return this.httpClient.delete<any>(
       environment.backend +
-      '/magic/modules/oracle/delete?article_id=' +
-      encodeURIComponent(id));
+      '/magic/modules/oracle/articles?article_id=' +
+      encodeURIComponent(id), {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('ticket')
+        }
+      });
   }
 }

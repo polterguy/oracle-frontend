@@ -142,8 +142,13 @@ h3 {
 }
 
 .article-content img {
-  max-width: 100%;
+  display: block;
+  max-width: 70%;
   max-height: 50vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .footer {
