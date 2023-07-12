@@ -55,13 +55,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   getArticles() {
 
-    // Retrieving 10 most recent answers.
+    // Retrieving 25 most recent answers.
     this.searchService.recentAnswers(this.permalinks).subscribe({
 
       next: (result: any[]) => {
 
         this.answers = result || [];
-        this.hasMore = this.answers.length >= 10;
+        this.hasMore = this.answers.length >= 25;
       },
 
       error: (error: any) => {
@@ -203,7 +203,7 @@ export class AppComponent implements OnInit, OnDestroy {
       next: (result: any[]) => {
 
         this.answers = this.answers.concat(result || []);
-        this.hasMore = result.length >= 10;
+        this.hasMore = result.length >= 25;
       },
 
       error: (error: any) => {
