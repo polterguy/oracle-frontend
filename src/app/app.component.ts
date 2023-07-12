@@ -227,7 +227,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   valid() {
 
-    return this.prompt.length >= 15 && this.prompt.length <= 100 && this.prompt.endsWith('?');
+    return this.prompt.length >= 5 && this.prompt.length <= 100 && this.prompt.endsWith('?');
   }
 
   dotDotDot() {
@@ -270,7 +270,15 @@ export class AppComponent implements OnInit, OnDestroy {
         
             this.hubConnection.on('oracle.message.' + result.gibberish, (args) => {
         
-              this.messages.push(JSON.parse(args));
+              const msg = JSON.parse(args);
+              this.messages.push(msg);
+
+              // Checking if we're done.
+              if (msg.type === 'article_created') {
+
+                this.hubConnection?.stop();
+                window.location.href = environment.backend + '/articles/' + msg.message;
+              }
             });
         
             this.hubConnection.start().then(() => {
@@ -278,9 +286,10 @@ export class AppComponent implements OnInit, OnDestroy {
               this.searchService.search(this.prompt, result.gibberish, token).subscribe({
         
                 next: (result: any) => {
-        
-                  this.hubConnection?.stop();
-                  window.location.href = environment.backend + '/articles/' + result.url;
+
+                  this.snack.open('Please wait while I find your answer', 'Ok', {
+                    duration: 2000,
+                  });
                 },
         
                 error: (error: any) => {
