@@ -137,8 +137,8 @@ export class AppComponent implements OnInit, OnDestroy {
           duration: 5000,
         });
 
-        // Fetching articles again.
-        this.getArticles();
+        // Removing article from list of articles for simplicity reasons.
+        this.answers = this.answers.filter(x => x.article_id !== answer.article_id);
       },
 
       error: (error: any) => {
