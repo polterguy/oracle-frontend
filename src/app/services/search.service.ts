@@ -76,11 +76,12 @@ export class SearchService {
   /**
    * Returns the numberof answers in total in system.
    */
-  countAnswers() {
+  countAnswers(permalinks: boolean) {
 
     return this.httpClient.get<any>(
       environment.backend +
-      '/magic/modules/oracle/answers-count');
+      '/magic/modules/oracle/answers-count' + 
+      (permalinks ? '?permalinks=true' : ''));
   }
 
   /**

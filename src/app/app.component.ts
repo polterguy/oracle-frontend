@@ -73,7 +73,7 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     // Counting answers.
-    this.searchService.countAnswers().subscribe({
+    this.searchService.countAnswers(this.permalinks).subscribe({
 
       next: (result: any) => {
 
