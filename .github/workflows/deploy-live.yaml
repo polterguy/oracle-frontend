@@ -29,6 +29,9 @@ jobs:
         run: |
           cp -r ./sitemap.hl ./dist/oracle
           cp -r ./sitemap.html ./dist/oracle
+      - name: Copy robots.txt to build folder
+        run: |
+          cp -r ./robots.txt ./dist/oracle
       - name: Archive
         if: success()
         uses: vimtor/action-zip@v1
