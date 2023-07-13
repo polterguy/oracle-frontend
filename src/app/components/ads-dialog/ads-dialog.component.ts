@@ -41,11 +41,6 @@ export class AdsDialogComponent implements OnInit {
     });
   }
 
-  deleteAd(ad: any) {
-
-    console.log(ad);
-  }
-
   newAd() {
 
     const data = this.ads.filter(x => true);
@@ -97,6 +92,27 @@ export class AdsDialogComponent implements OnInit {
         }
       });
     }
+  }
+
+  deleteAd(ad: any) {
+
+    this.searchService.deleteAd(ad).subscribe({
+
+      next: (result: any) => {
+
+        this.snack.open('Ad successfully deleted', 'Ok', {
+          duration: 2000,
+        });
+        this.ads = this.ads.filter(x => x.ad_id !== ad.ad_id);
+      },
+
+      error: (error: any) => {
+
+        this.snack.open(error.error, 'Ok', {
+          duration: 5000,
+        });
+      }
+    });
   }
 
   close() {

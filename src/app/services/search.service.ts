@@ -148,4 +148,14 @@ export class SearchService {
         'Authorization': 'Bearer ' + localStorage.getItem('ticket')
       }});
   }
+
+  deleteAd(ad: any) {
+
+    return this.httpClient.delete<any>(
+      environment.backend +
+      '/magic/modules/oracle/ads?ad_id=' + ad.ad_id, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('ticket')
+      }});
+  }
 }

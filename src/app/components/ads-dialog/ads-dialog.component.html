@@ -29,28 +29,18 @@
               Save
             </button>
 
+            <button
+              (click)="deleteAd(idx)"
+              mat-button>
+              Delete
+            </button>
+
           </div>
 
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="delete">
-        <td
-          mat-cell
-          class="small-cell"
-          *matCellDef="let idx">
-
-          <button
-            mat-button
-            matTooltip="Delete ad entirely"
-            (click)="deleteAd(idx)">
-            <mat-icon>delete</mat-icon>
-          </button>
-
-        </td>
-      </ng-container>
-
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.permalink]="row.permalink === 1"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     </table>
     <!-- /Ads -->
