@@ -36,13 +36,13 @@ sitemap
          set-value:x:@.xml
             strings.concat
                get-value:x:@.xml
-               .:"<loc>"
+               .:"<url><loc>"
                .:"https://oracle.ainiro.io/articles/"
                get-value:x:@.dp/#/*/url
                .:"</loc>"
                .:"<lastmod>"
                get-value:x:@.date
-               .:"</lastmod>"
+               .:"</lastmod></url>"
 
    // Returning XML to caller.
    return:x:@.xml
