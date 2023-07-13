@@ -13,10 +13,6 @@ a:focus {
   text-decoration: underline;
 }
 
-h1 {
-  text-transform: capitalize;
-}
-
 h3 {
   font-weight: 100;
 }
