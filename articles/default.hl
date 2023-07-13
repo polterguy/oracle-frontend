@@ -152,7 +152,7 @@
             .:long:0
          .lambda
 
-            // We've got ads.
+            // We've got relevant ads.
             data.select:@"
 select a.content
 	from vss_ads as vss
