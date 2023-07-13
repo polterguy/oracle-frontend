@@ -1,0 +1,5 @@
+
+.content
+.oninit
+   set-value:x:@.content
+      markdown2html:x:./././*/content
