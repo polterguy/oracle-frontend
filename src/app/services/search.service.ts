@@ -112,4 +112,40 @@ export class SearchService {
         }
       });
   }
+
+  ads() {
+
+    return this.httpClient.get<any[]>(
+      environment.backend +
+      '/magic/modules/oracle/ads', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('ticket')
+      }});
+  }
+
+  updateAd(ad: any) {
+
+    return this.httpClient.put<any>(
+      environment.backend +
+      '/magic/modules/oracle/ads', {
+        ad_id: ad.ad_id,
+        content: ad.content,
+      }, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('ticket')
+      }});
+  }
+
+  createAd(ad: any) {
+
+    return this.httpClient.post<any>(
+      environment.backend +
+      '/magic/modules/oracle/ads', {
+        ad_id: ad.ad_id,
+        content: ad.content,
+      }, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('ticket')
+      }});
+  }
 }

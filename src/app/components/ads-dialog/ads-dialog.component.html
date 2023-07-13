@@ -1,11 +1,70 @@
 
-<h3 mat-dialog-title>Login</h3>
+<h3 mat-dialog-title>Ads</h3>
 
 <div mat-dialog-content>
-  foo
+
+    <!-- Ads -->
+    <table
+      mat-table
+      [dataSource]="ads">
+
+      <ng-container matColumnDef="content">
+        <td
+          mat-cell
+          *matCellDef="let idx">
+
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              rows="3"
+              [(ngModel)]="idx.content">
+            </textarea>
+          </mat-form-field>
+
+          <div class="right">
+
+            <button
+              (click)="saveAd(idx)"
+              mat-button>
+              Save
+            </button>
+
+          </div>
+
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <td
+          mat-cell
+          class="small-cell"
+          *matCellDef="let idx">
+
+          <button
+            mat-button
+            matTooltip="Delete ad entirely"
+            (click)="deleteAd(idx)">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </td>
+      </ng-container>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class.permalink]="row.permalink === 1"></tr>
+
+    </table>
+    <!-- /Ads -->
+
 </div>
 
 <div mat-dialog-actions [align]="'end'">
+
+  <button
+    mat-flat-button
+    (click)="newAd()"
+    type="button">
+    New
+  </button>
 
   <button
     mat-flat-button
