@@ -7,7 +7,7 @@
 .url
 .description
 .source
-.ad
+.ad:
 
 .oninit
 
@@ -146,7 +146,14 @@
                .:@"</a></li>"
 
       // Fetching most relevant ad, if there are any relevant ads.
-      data.select:@"
+      data.scalar:select count(*) from ads
+      if
+         mt:x:@data.scalar
+            .:long:0
+         .lambda
+
+            // We've got ads.
+            data.select:@"
 select a.content
 	from vss_ads as vss
     	inner join ads a on a.ad_id = vss.rowid
@@ -154,18 +161,18 @@ select a.content
      vss.embedding_vss,
      vss_search_params((select embedding_vss from vss_articles where rowid = @id), 1)
    ) and vss.distance < 0.55"
-         id:x:@data.read/0/*/article_id
+               id:x:@data.read/0/*/article_id
 
-      // Checking if above invocation returned a relevant ad.
-      if
-         exists:x:@data.select/*
-         .lambda
+            // Checking if above invocation returned a relevant ad.
+            if
+               exists:x:@data.select/*
+               .lambda
 
-            // We have a relevant ad.
-            unwrap:x:+/*/*/content
-            set-value:x:@.ad
-               io.file.mixin:/etc/www/.components/add.html
-                  content:x:@data.select/0/*/content
+                  // We have a relevant ad.
+                  unwrap:x:+/*/*/content
+                  set-value:x:@.ad
+                     io.file.mixin:/etc/www/.components/add.html
+                        content:x:@data.select/0/*/content
 
       // Returning correct MIME type and charset.
       response.headers.set
