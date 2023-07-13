@@ -6,6 +6,12 @@
   <!-- Top navbar -->
   <div class="navbar">
 
+    <button
+      mat-button
+      (click)="showAds()">
+      Ads
+    </button>
+
     <mat-slide-toggle
       [(ngModel)]="permalinks"
       (change)="permalinksChanged()"

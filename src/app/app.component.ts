@@ -10,6 +10,7 @@ import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microso
 import { environment } from 'src/environments/environment';
 import { SearchService } from './services/search.service';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
+import { AdsDialogComponent } from './components/ads-dialog/ads-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -92,6 +93,14 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
 
     this.hubConnection?.stop();
+  }
+
+  showAds() {
+
+    this.dialog
+      .open(AdsDialogComponent, {
+        width: '80%',
+      });
   }
 
   login() {

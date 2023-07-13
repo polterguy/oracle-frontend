@@ -22,11 +22,13 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 import { AppComponent } from './app.component';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
+import { AdsDialogComponent } from './components/ads-dialog/ads-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginDialogComponent,
+    AdsDialogComponent,
   ],
   imports: [
     BrowserModule,
