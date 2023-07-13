@@ -141,6 +141,13 @@ h3 {
 .footer {
   padding: 1em 0;
 }
+.footer ul {
+  padding-left: 0;
+}
+.footer li {
+  display: block !important;
+  text-align: center;
+}
 .footer a {
   color: #ccc;
   font-size: 80%;

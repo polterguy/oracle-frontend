@@ -76,14 +76,6 @@
       set-value:x:@.created
          date.format:x:@convert
             format:D
-      if
-         eq:x:@data.read/*/*/permalink
-            .:long:1
-         .lambda
-            set-value:x:@.created
-               strings.concat
-                  get-value:x:@.created
-                  .:" - Permalink"
 
       set-value:x:@.description
          strings.substring:x:@data.read/0/*/content
