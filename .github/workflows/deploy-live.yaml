@@ -25,6 +25,10 @@ jobs:
       - name: Copy articles folder to build folder
         run: |
           cp -r ./articles ./dist/oracle
+      - name: Copy sitemap to build folder
+        run: |
+          cp -r ./sitemap.hl ./dist/oracle
+          cp -r ./sitemap.html ./dist/oracle
       - name: Archive
         if: success()
         uses: vimtor/action-zip@v1

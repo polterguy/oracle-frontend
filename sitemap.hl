@@ -1,0 +1,48 @@
+
+.oninit
+   response.headers.set
+      Content-Type:application/xml; charset=utf8
+
+sitemap
+
+   // Contains XML for all articles.
+   .xml:
+
+   // Opening op database connection.
+   data.connect:[generic|oracle]
+
+      // Selecting all permalink article's and their URLs
+      data.read
+         table:articles
+         columns
+            url
+            created
+         where
+            and
+               permalink.eq:int:1
+         order:created
+         direction:desc
+
+      // Looping through all articles, creating XML out of URLs.
+      for-each:x:@data.read/*
+
+         // Formatting created date to ISO date.
+         .date
+         set-value:x:@.date
+            convert:x:@.dp/#/*/created
+               type:date
+
+         // Concatenating currently iterated article into above [.xml]
+         set-value:x:@.xml
+            strings.concat
+               get-value:x:@.xml
+               .:"<loc>"
+               .:"https://oracle.ainiro.io/articles/"
+               get-value:x:@.dp/#/*/url
+               .:"</loc>"
+               .:"<lastmod>"
+               get-value:x:@.date
+               .:"</lastmod>"
+
+   // Returning XML to caller.
+   return:x:@.xml
