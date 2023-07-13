@@ -31,6 +31,9 @@ sitemap
          set-value:x:@.date
             convert:x:@.dp/#/*/created
                type:date
+         set-value:x:@.date
+            date.format:x:@.date
+               format:yyyy-MM-dd
 
          // Concatenating currently iterated article into above [.xml]
          set-value:x:@.xml
