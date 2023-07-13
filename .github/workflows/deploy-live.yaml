@@ -32,6 +32,9 @@ jobs:
       - name: Copy robots.txt to build folder
         run: |
           cp -r ./robots.txt ./dist/oracle
+      - name: Copy .components to build folder
+        run: |
+          cp -r ./.components ./dist/oracle
       - name: Archive
         if: success()
         uses: vimtor/action-zip@v1
