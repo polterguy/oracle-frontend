@@ -28,7 +28,8 @@ export class AppComponent implements OnInit, OnDestroy {
   count: number = 0;
   hasMore: boolean = true;
   ticket: string | null = null;
-  permalinks: boolean = false;
+  permalinks: boolean = true;
+  isAdmin: boolean = false;
   displayedColumns: string[] = [
     'title',
   ];
@@ -46,6 +47,9 @@ export class AppComponent implements OnInit, OnDestroy {
     const ticket = localStorage.getItem('ticket');
     if (ticket) {
       this.ticket = ticket;
+      this.isAdmin = true;
+      this.permalinks = false;
+      this.getArticles();
       this.displayedColumns = [
         'title',
         'permalink',
@@ -120,6 +124,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
               this.ticket = result.ticket;
               localStorage.setItem('ticket', <string>this.ticket);
+              this.isAdmin = true;
+              this.permalinks = false;
+              this.getArticles();
               this.displayedColumns = [
                 'title',
                 'permalink',
@@ -142,6 +149,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.ticket = null;
     localStorage.removeItem('ticket');
+    this.isAdmin = false;
+    this.permalinks = true;
+    this.getArticles();
     this.displayedColumns = [
       'title',
     ];
