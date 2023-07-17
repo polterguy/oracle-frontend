@@ -43,7 +43,9 @@ export class EditAnswerDialogComponent implements OnInit {
 
       next: () => {
 
-        this.snack.open('Article successfully updated');
+        this.snack.open('Article successfully updated', 'Ok', {
+          duration: 1000,
+        });
       },
 
       error: (error: any) => {
