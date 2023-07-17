@@ -1,0 +1,37 @@
+
+<h3 mat-dialog-title>Edit answer</h3>
+
+<div mat-dialog-content>
+
+  <mat-form-field class="editor">
+    <textarea
+      matInput
+      placeholder="Content"
+      [(ngModel)]="data.content"
+      rows="10">
+    </textarea>
+  </mat-form-field>
+
+  <div
+    class="markdown"
+    [innerHTML]="data.content | marked"></div>
+
+</div>
+
+<div mat-dialog-actions [align]="'end'">
+
+  <button
+    mat-flat-button
+    (click)="save()"
+    type="button">
+    Save
+  </button>
+
+  <button
+    mat-flat-button
+    (click)="close()"
+    type="button">
+    Close
+  </button>
+
+</div>

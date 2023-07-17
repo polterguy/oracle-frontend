@@ -21,14 +21,18 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
 import { AppComponent } from './app.component';
+import { MarkedPipe } from "./services/marked.pipe";
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 import { AdsDialogComponent } from './components/ads-dialog/ads-dialog.component';
+import { EditAnswerDialogComponent } from './components/edit-answer-dialog/edit-answer-dialog.component';
 
 @NgModule({
   declarations: [
+    MarkedPipe,
     AppComponent,
-    LoginDialogComponent,
     AdsDialogComponent,
+    LoginDialogComponent,
+    EditAnswerDialogComponent,
   ],
   imports: [
     BrowserModule,

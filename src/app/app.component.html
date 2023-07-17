@@ -120,6 +120,22 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="edit">
+        <td
+          mat-cell
+          class="small-cell"
+          *matCellDef="let idx">
+
+          <button
+            mat-button
+            matTooltip="Edit answer"
+            (click)="editAnswer(idx)">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="delete">
         <td
           mat-cell

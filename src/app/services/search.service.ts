@@ -85,6 +85,21 @@ export class SearchService {
   }
 
   /**
+   * Get article with specified id.
+   */
+  getAnswer(id: number) {
+
+    return this.httpClient.get<any>(
+      environment.backend +
+      '/magic/modules/oracle/articles?article_id=' +
+      encodeURIComponent(id), {
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('ticket')
+        }
+      });
+  }
+
+  /**
    * Deletes the specified article from backend.
    */
   deleteAnswer(id: number) {

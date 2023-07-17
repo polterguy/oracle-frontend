@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { SearchService } from './services/search.service';
 import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 import { AdsDialogComponent } from './components/ads-dialog/ads-dialog.component';
+import { EditAnswerDialogComponent } from './components/edit-answer-dialog/edit-answer-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -42,8 +43,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.getArticles();
-
     const ticket = localStorage.getItem('ticket');
     if (ticket) {
       this.ticket = ticket;
@@ -53,9 +52,12 @@ export class AppComponent implements OnInit, OnDestroy {
       this.displayedColumns = [
         'title',
         'permalink',
+        'edit',
         'delete',
       ];
     }
+
+    this.getArticles();
   }
 
   getArticles() {
@@ -130,6 +132,7 @@ export class AppComponent implements OnInit, OnDestroy {
               this.displayedColumns = [
                 'title',
                 'permalink',
+                'edit',
                 'delete',
               ];
             },
@@ -189,6 +192,15 @@ export class AppComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  editAnswer(answer: any) {
+
+    this.dialog
+      .open(EditAnswerDialogComponent, {
+        width: '80%',
+        data: answer,
+      });
   }
 
   deleteAnswer(answer: any) {
