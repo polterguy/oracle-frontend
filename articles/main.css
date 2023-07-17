@@ -27,6 +27,13 @@ h3 {
   padding: 0;
 }
 
+.related-information {
+  padding: 15px 15px 0 15px;
+  border-radius: 15px;
+  border: solid 1px rgb(200,255,200);
+  background-color: rgb(235,255,235);
+}
+
 .header {
   text-align: center;
   top: auto;
