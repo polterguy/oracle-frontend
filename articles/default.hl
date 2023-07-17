@@ -161,10 +161,13 @@ select a.content
                .lambda
 
                   // We have a relevant ad.
-                  unwrap:x:+/*/*/content
+                  unwrap:x:+/*/*/*/content
                   set-value:x:@.ad
-                     io.file.mixin:/etc/www/.components/add.html
-                        content:x:@data.select/0/*/content
+                     strings.concat
+                        .:@"<div class=""related-information""><strong>Sponsored content</strong> "
+                        io.file.mixin:/etc/www/.components/add.html
+                           content:x:@data.select/0/*/content
+                        .:"</div>"
 
       // Returning correct MIME type and charset.
       response.headers.set
