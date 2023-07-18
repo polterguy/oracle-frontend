@@ -125,6 +125,15 @@
           and a.article_id != @id and a.permalink = 1 order by vss.distance"
          id:x:@data.read/0/*/article_id
 
+      // Making sure we have related articles.
+      if
+         exists:x:@data.select/*
+         .lambda
+
+            // Adding boiler plate HTML for related articles.
+            set-value:x:@.related
+               .:@"<nav class=""nav related-articles""><h3>Related articles</h3><ul class=""nav-list"">"
+
       // Looping through related articles and creating our navigation URLs.
       for-each:x:@data.select/*
          set-value:x:@.related
@@ -136,6 +145,17 @@
                .:@""">"
                get-value:x:@.dp/#/*/title
                .:@"</a></li>"
+
+      // Ending boiler plate HTML if we have related articles.
+      if
+         exists:x:@data.select/*
+         .lambda
+
+            // Adding boiler plate HTML for related articles.
+            set-value:x:@.related
+               strings.concat
+                  get-value:x:@.related
+                  .:@"</ul></nav>"
 
       // Fetching most relevant ad, if there are any relevant ads.
       data.scalar:select count(*) from ads
