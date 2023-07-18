@@ -121,7 +121,7 @@
         inner join articles a on a.article_id = vss.rowid
         where vss_search(
           embedding_vss,
-          vss_search_params((select embedding_vss from vss_articles where rowid = @id limit 1), 11))
+          vss_search_params((select embedding_vss from vss_articles where rowid = @id limit 1), 6))
           and a.article_id != @id and a.permalink = 1 order by vss.distance"
          id:x:@data.read/0/*/article_id
 
