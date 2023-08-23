@@ -8,6 +8,7 @@
 .description
 .source
 .ad:
+.noindex:
 
 .oninit
 
@@ -76,6 +77,12 @@
       set-value:x:@.created
          date.format:x:@convert
             format:D
+      if
+         eq:x:@data.read/*/*/permalink
+            .:long:0
+         .lambda
+            set-value:x:@.noindex
+               .:@"<meta name=""robots"" content=""noindex"" />"
 
       set-value:x:@.description
          strings.substring:x:@data.read/0/*/content
